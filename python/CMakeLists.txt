@@ -7,7 +7,7 @@ else()
   message(FATAL_ERROR "Swig not found!\n")
 endif()
 
-find_package(PythonLibs 2.7 REQUIRED)
+find_package(PythonLibs 3.8 REQUIRED)
 if (PYTHONLIBS_FOUND)
   message(STATUS "Python header found at ${PYTHON_INCLUDE_DIRS}")
   message(STATUS "Python library found at ${PYTHON_LIBRARIES}")
@@ -51,6 +51,7 @@ if (${CMAKE_VERSION} VERSION_LESS 3.13.0)
   set_property(SOURCE ${PROJECT_SOURCE_DIR}/python/fmm.i
     PROPERTY SWIG_MODULE_NAME fmm)
   SWIG_ADD_MODULE(fmm python ${PROJECT_SOURCE_DIR}/python/fmm.i)
+  set_property(TARGET pyfmm PROPERTY SWIG_COMPILE_OPTIONS -py3)
   swig_link_libraries(fmm
           ${PYTHON_LIBRARIES}
           ${Boost_LIBRARIES}
@@ -61,7 +62,7 @@ else()
   SWIG_ADD_LIBRARY(pyfmm
     LANGUAGE python
     SOURCES ${PROJECT_SOURCE_DIR}/python/fmm.i)
-  set_property(TARGET pyfmm PROPERTY OUTPUT_NAME fmm)
+  set_property(TARGET pyfmm PROPERTY SWIG_COMPILE_OPTIONS -py3)
   swig_link_libraries(pyfmm
           ${PYTHON_LIBRARIES}
           ${Boost_LIBRARIES}
