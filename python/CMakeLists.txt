@@ -50,7 +50,7 @@ if (${CMAKE_VERSION} VERSION_LESS 3.13.0)
   message(STATUS "Using swig add module")
   set_property(SOURCE ${PROJECT_SOURCE_DIR}/python/fmm.i
     PROPERTY SWIG_MODULE_NAME fmm)
-  SWIG_ADD_LIBRARY(fmm python ${PROJECT_SOURCE_DIR}/python/fmm.i)
+  SWIG_ADD_LIBRARY(fmm LANGUAGE python SOURCES ${PROJECT_SOURCE_DIR}/python/fmm.i)
   set_property(TARGET fmm PROPERTY SWIG_COMPILE_OPTIONS -py3)
   swig_link_libraries(fmm
           ${PYTHON_LIBRARIES}
